@@ -13,7 +13,9 @@ let mainWindow;
 function createWindow() {
     mainWindow = new BrowserWindow({width: 800, height: 600, frame: false, backgroundColor: '#333333'});
     // mainWindow.loadURL(`file://${__dirname}/dist/index.html`); // on prod load on file.
-    mainWindow.loadURL('http://localhost:5500', {webPreferences: {webSecurity: false}});
+    // mainWindow.loadURL('http://localhost:5500', {webPreferences: {webSecurity: false}});
+    mainWindow.loadURL('file://' + __dirname + '/dist/index.html', {webPreferences: {webSecurity: false}});
+
     mainWindow.setMenu(null);
     mainWindow.webContents.openDevTools();
     mainWindow.once('ready-to-show', () => {

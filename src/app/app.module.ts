@@ -6,10 +6,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { MonacoComponent } from './monaco/monaco.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MonacoComponent
   ],
   imports: [
     BrowserModule,

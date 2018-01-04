@@ -33,5 +33,9 @@ cnpm install --save hammerjs
 ```
 
 
-3. ADD 
+3. Add monaco editor
+https://microsoft.github.io/monaco-editor/
+```angular2html
+cnpm install monaco-editor@latest --save
+```
 
