@@ -1,0 +1,48 @@
+.div-window-bar {
+    display: flex;
+}
+
+.drag-window {
+    margin: 5px 0 0 5px;
+    -webkit-app-region: drag;
+//height: 100%;
+    flex-grow: 1;
+//background-color: brown;
+    height: 35px;
+    display: inline-flex;
+h1 {
+    margin: 2px;
+    font-size: 1.5em;
+}
+}
+
+.div-win-control {
+    margin: 1px;
+//background-color: cornflowerblue;
+    display: inline-flex;
+button {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    width: 45px;
+}
+
+#btn-win-min:hover {
+    background-color: #eeeeee;
+}
+
+#btn-win-max:hover {
+    background-color: #eeeeee;
+}
+
+#btn-win-close:hover {
+    background-color: #ff0000;
+}
+
+}
+
+
+.div-monaco-editor {
+    width: 50%;
+    height: 100%;
+}

@@ -30,8 +30,9 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
         amdRequire.config({'vs/nls': {availableLanguages: {'*': 'zh-cn'}}}); // 设置中文菜单等
         amdRequire(['vs/editor/editor.main'], () => {
             this.editor = monaco.editor.create(this.editorContent.nativeElement, {
-                value: `function hello() {\n\talert('Hello world!');\n}`,
-                language: 'javascript',
+                value: `#hello \n function hello() {\n\talert('Hello world!');\n}`,
+                language: 'markdown',
+                theme: 'vs-dark'
                 // automaticLayout: true,
                 // scrollBeyondLastLine: false,
                 // scrollbar: {
@@ -168,4 +169,21 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
     //   });
     // }
 
+    mythemme() {
+        monaco.editor.defineTheme('myCoolTheme', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [
+                {background: '4c4b51'},
+                {token: 'custom-info', foreground: '808080'},
+                {token: 'custom-error', foreground: 'ff0000', fontStyle: 'bold'},
+                {token: 'custom-notice', foreground: 'FFA500'},
+                {token: 'custom-date', foreground: '008800'},
+            ],
+            colors: {
+                'editor.background': '#4c4b51',
+                'editorLineNumber.foreground': '#c2c2c2',
+            }
+        });
+    }
 }

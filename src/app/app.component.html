@@ -1,3 +1,30 @@
+
+<div class="div-window-bar" style="text-align:center">
+    <div class="drag-window" style="text-align:center">
+        <h1>
+            Welcome yy to {{title}}!!
+        </h1>
+
+        <!--<i class="material-icons">close</i>-->
+    </div>
+
+
+    <div class="div-win-control">
+        <button id="btn-win-min" mat-icon-button (click)="windowMin()" title="最小化">
+            <mat-icon aria-label="Example icon-button with a heart icon">remove</mat-icon>
+        </button>
+
+        <button id="btn-win-max" mat-icon-button (click)="windowMax()" title='{{isMaximize?"恢复":"最大化"}}'>
+            <mat-icon aria-label="Example icon-button with a heart icon">{{isMaximize?'fullscreen_exit':'fullscreen'}}
+            </mat-icon>
+        </button>
+
+        <button id="btn-win-close" mat-icon-button (click)="windowClose()" title="关闭">
+            <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+        </button>
+    </div>
+</div>
+
 <!--The content below is only a placeholder and can be replaced.-->
 <!--<div class="div-monaco-editor">-->
     <app-monaco></app-monaco>
