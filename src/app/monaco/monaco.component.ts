@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, forwardRef} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Subject} from 'rxjs/Subject';
 
 declare const monaco;
 declare const require;
@@ -13,6 +14,10 @@ declare const amdRequire;
 })
 export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('editor') editorContent: ElementRef; // 编辑器Element
+
+    textData = `## Markdown content data`;
+
+    loadData = new Subject<string>();
 
     private editor: any; // 创建的编辑器
     private _javascriptExtraLibs: any = null; // 释放使用过的库，可能没用
@@ -32,7 +37,7 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
             this.editor = monaco.editor.create(this.editorContent.nativeElement, {
                 value: `#hello \n function hello() {\n\talert('Hello world!');\n}`,
                 language: 'markdown',
-                theme: 'vs-dark'
+                // theme: 'vs-dark'
                 // automaticLayout: true,
                 // scrollBeyondLastLine: false,
                 // scrollbar: {
@@ -47,6 +52,17 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
                 // readOnly: false
             });
             // this.initMonaco();
+        });
+
+        this.loadData.subscribe((data) => {
+            this.editor.setValue(data);
+            // if (!/^error:/.test(data)) {
+            //     this.check(data);
+            // }
+        });
+
+        this.editor.onDidChangeModelContent((e) => {
+            console.log('#___________change:', e);
         });
     }
 
@@ -171,7 +187,7 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
 
     mythemme() {
         monaco.editor.defineTheme('myCoolTheme', {
-            base: 'vs-dark',
+            // base: 'vs-dark',
             inherit: true,
             rules: [
                 {background: '4c4b51'},

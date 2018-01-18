@@ -11,7 +11,9 @@ const ipcMain = electron.ipcMain;
 let mainWindow;
 
 function createWindow() {
-    mainWindow = new BrowserWindow({width: 800, height: 600, frame: false, backgroundColor: '#333333'});
+    mainWindow = new BrowserWindow({width: 800, height: 600, frame: false,
+        transparent: false,
+        backgroundColor: '#ffffff'});
     // mainWindow.loadURL(`file://${__dirname}/dist/index.html`); // on prod load on file.
     // mainWindow.loadURL('http://localhost:5500', {webPreferences: {webSecurity: false}});
     mainWindow.loadURL('file://' + __dirname + '/dist/index.html', {webPreferences: {webSecurity: false}});
