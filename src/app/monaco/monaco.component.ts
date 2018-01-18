@@ -51,6 +51,8 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
                 // },
                 // readOnly: false
             });
+
+            this.editor.onDidChangeModelContent(function(e) { console.log('#___________ev:', e); });
             // this.initMonaco();
         });
 

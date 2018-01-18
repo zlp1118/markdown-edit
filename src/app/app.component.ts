@@ -9,7 +9,14 @@ import {WindowService} from './service/window.service';
 export class AppComponent {
     title = 'app';
     isMaximize = false;
-    textData = `## Markdown content data`;
+    textData = `## Markdown content data
+    
+    1. ab
+    2. cc
+    
+ ### cs
+    
+    `;
 
     windowMin() {
         WindowService.minimize();
