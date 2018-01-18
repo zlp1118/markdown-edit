@@ -1,7 +1,10 @@
 <div id="div-monaco-area">
-    <div id='editor' #editor class="monaco-editor"></div>
+    <div id='editor' #editor class="monaco-editor" [style.width]="leftWidth+'px'"></div>
 
-    <markdown [data]="textData"></markdown>
+    <div class="drag-x"  (mousedown)="leftMouseDown($event);"></div>
+    <div id="markdown-area">
+        <markdown  [data]="textData"></markdown>
+    </div>
 </div>
 
 

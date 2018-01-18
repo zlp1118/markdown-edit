@@ -19,7 +19,7 @@ function createWindow() {
     mainWindow.loadURL('file://' + __dirname + '/dist/index.html', {webPreferences: {webSecurity: false}});
 
     mainWindow.setMenu(null);
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools({detach: true});
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
     });

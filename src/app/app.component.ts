@@ -7,7 +7,7 @@ import {WindowService} from './service/window.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'app';
+    title = '  Markdown Editor';
     isMaximize = false;
     textData = `## Markdown content data
     

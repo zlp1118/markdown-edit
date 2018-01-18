@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 5500",
-    "watch": "ng build -watch -o dist/",
+    "watch": "ng build -watch",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

@@ -1,5 +1,27 @@
-
+#div-monaco-area{
+    display: flex;
+    margin: 5px;
+    height: 100%;
+}
 .monaco-editor {
-    height: 50%;
+    display: inline-flex;
+    height: 100%;
     width:  50%;
+}
+
+#markdown-area {
+    display: inline-flex;
+    padding: 5px;
+    height: 100%;
+    width:  50%;
+}
+
+.drag-x {
+    width: 3px;
+    background-color: #cccccc;
+    cursor: w-resize;
+}
+
+h1 {
+    color: goldenrod;
 }

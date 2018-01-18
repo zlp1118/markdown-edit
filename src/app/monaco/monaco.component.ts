@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, forwardRef} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
 
 declare const monaco;
 declare const require;
@@ -18,6 +19,9 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
     textData = `## Markdown content data`;
 
     loadData = new Subject<string>();
+    markData = new Subject<string>();
+
+    leftWidth = 600;
 
     private editor: any; // 创建的编辑器
     private _javascriptExtraLibs: any = null; // 释放使用过的库，可能没用
@@ -32,10 +36,13 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
+        setInterval(() => {
+            // this.leftWidth = this.leftWidth;
+        }, 100);
         amdRequire.config({'vs/nls': {availableLanguages: {'*': 'zh-cn'}}}); // 设置中文菜单等
         amdRequire(['vs/editor/editor.main'], () => {
             this.editor = monaco.editor.create(this.editorContent.nativeElement, {
-                value: `#hello \n function hello() {\n\talert('Hello world!');\n}`,
+                value: `# hello \n function hello() {\n\talert('Hello world!');\n}`,
                 language: 'markdown',
                 // theme: 'vs-dark'
                 // automaticLayout: true,
@@ -52,19 +59,26 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
                 // readOnly: false
             });
 
-            this.editor.onDidChangeModelContent(function(e) { console.log('#___________ev:', e); });
+            this.editor.onDidChangeModelContent((e) => {
+                console.log('#___________ev:', e);
+                this.markData.next(this.editor.getValue());
+            });
+            this.textData = this.editor.getValue();
             // this.initMonaco();
         });
 
-        this.loadData.subscribe((data) => {
+        this.loadData.debounceTime(200).subscribe((data) => {
             this.editor.setValue(data);
             // if (!/^error:/.test(data)) {
             //     this.check(data);
             // }
         });
-
-        this.editor.onDidChangeModelContent((e) => {
-            console.log('#___________change:', e);
+        this.markData.debounceTime(200).subscribe((data) => {
+            console.log('#___________data:', this.textData)
+            this.textData = data;
+            // if (!/^error:/.test(data)) {
+            //     this.check(data);
+            // }
         });
     }
 
@@ -203,5 +217,41 @@ export class MonacoComponent implements OnInit, AfterViewInit, OnDestroy {
                 'editorLineNumber.foreground': '#c2c2c2',
             }
         });
+    }
+
+    /**
+     * 程序树和3D分割线处鼠标点击
+     * @param {MouseEvent} e 鼠标按下事件
+     */
+    leftMouseDown(e: MouseEvent) {
+        // const new_leftPanelWidth = parseInt(this.leftPanelWidth.split("px")[0], 10);
+        const preX = e.pageX;
+        document.onmousemove = (ev) => {
+            console.log('#___________move ev:', this.leftWidth, ev);
+            const NextX = ev.pageX;
+            const moveX = NextX - preX;
+            // if (new_leftPanelWidth + moveX + 8 >= this.windowService.winWidth) {
+            //     this.leftPanelWidth = this.windowService.winWidth - 8 + 'px';
+            //     this.windowService.terminalWidth = 8 + 'px';
+            // } else if (new_leftPanelWidth + moveX <= 8) {
+            //     this.leftPanelWidth = 8 + 'px';
+            //     this.windowService.terminalWidth = this.windowService.winWidth - 8 + 'px';
+            // } else {
+            //     this.leftPanelWidth = (new_leftPanelWidth + moveX) + 'px';
+            //     this.windowService.terminalWidth = this.elementRef.nativeElement
+            //         .parentElement.offsetWidth - (new_leftPanelWidth + moveX) + 'px';
+            // }
+            // this.windowService.leftWidth = parseInt(this.leftPanelWidth.split("px")[0], 10);
+
+            // setTimeout(() => {
+                this.leftWidth = ev.x;
+                if (this.editor) {
+                    this.editor.layout();
+                }
+            // }, 0);
+        };
+        document.onmouseup = () => {
+            document.onmousemove = null;
+        }
     }
 }
